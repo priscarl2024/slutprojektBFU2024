@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gissa Numret</title>
+    <style>
+    body {
+    background-color: #72b0db;
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+     <h1>Knäck koden till skattkistan!</h1>
+    <p> Piraten närmar sig och nu har du inte mycket tid på dig, 
+        du får helt enkelt gissa vad de sista siffrorna på koden till låset är. Du har tre försök på dig innan piraten hinner fram.</p>
+        <p>958364**</p>
+
+<input id="input">
+<button id="button">GISSA</button>
+<div id="output"></div>
+<p id="answer"></p>
+<p id="livesLeft">&#x2665;&#x2665;&#x2665;</p>
+    
+<script>
+
+BUTTON = document.getElementById("button");
+
+let randomNumber = selectNumber();
+let lives = 3;
+let lifeCounter = "&#x2665;&#x2665;&#x2665;"; // För siffror: "LIV: " + lives;
+
+// answer(); // För att testa om det funkar
+
+
+function selectNumber() {
+    return Math.floor(Math.random() * 89 + 10);
+}
+
+    BUTTON.onclick = function() {
+    INPUT = Number(document.getElementById("input").value);
+    if (INPUT === randomNumber) {
+    print("Rätt! Skatten är din!");
+    BUTTON.disabled = true; 
+}  else if (INPUT < randomNumber && INPUT >= 10) {
+    print("Ajdå, det var fel! Skynda dig att gissa på ett högre tal");
+    lives--;
+}   else if (INPUT > randomNumber && INPUT <= 99) {
+    print("Ajdå, det var fel! Skynda dig att gissa på ett lägre tal");
+    lives--;
+}   else if (INPUT > 99 || INPUT < 10) {
+    print("App, app, app! Det saknas bara två siffror till kodlåset");
+}  
+
+    if (lives === 0) {
+    print("Game over! Piraten får skatten. Det rätta numret var: " + randomNumber);
+    BUTTON.disabled = true;
+    lifeCounter = "" // "LIV: " + 0;
+    livesLeft();
+    } else {
+    lifeCounter = "&#x2665;".repeat(lives); // "LIV: " + lives;
+    livesLeft();
+}
+}
+
+
+function print(text){
+        document.getElementById("output").innerHTML = text;
+}
+function answer(){
+        document.getElementById("answer").innerHTML = randomNumber;
+    }
+
+function livesLeft(){
+        document.getElementById("livesLeft").innerHTML = lifeCounter;
+}
+
+    </script>
+</body>
+</html>
